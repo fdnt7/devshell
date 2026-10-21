@@ -1,23 +1,10 @@
+# What this repository adds to the formatting devshell gives every project
+# (mdformat, nixfmt, shfmt for .envrc, taplo).
 {
-  # Used to find the project root
-  projectRootFile = "flake.nix";
-
   programs = {
-    mdformat = {
-      enable = true;
-      # Tables and the rest of GitHub's Markdown, which mdformat would mangle
-      plugins = ps: [ ps.mdformat-gfm ];
-      settings.wrap = 80;
-    };
-    nixfmt.enable = true;
-    shfmt = {
-      enable = true;
-      includes = [
-        ".envrc"
-        "*.sh"
-      ];
-    };
-    taplo.enable = true;
+    # Tables and the rest of GitHub's Markdown, which mdformat would mangle
+    mdformat.plugins = ps: [ ps.mdformat-gfm ];
+    shfmt.includes = [ "*.sh" ];
     yamlfmt.enable = true;
   };
 }
