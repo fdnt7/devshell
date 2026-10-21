@@ -10,6 +10,7 @@ Git hooks for [prek] and [pre-commit], packaged with Nix.
 | `no-co-authors`     | commit-msg | No `Co-authored-by` trailers, for repositories with one author                      |
 | `treefmt`           | pre-commit | No file that the repository's treefmt would change                                  |
 | `typos`             | pre-commit | No spelling mistakes, by `typos.toml`, reported but not fixed                       |
+| `typos-commit-msg`  | commit-msg | The same, for the commit message                                                    |
 
 ## Use
 
@@ -32,6 +33,7 @@ hooks = [
   { id = "no-co-authors" },
   { id = "treefmt" },
   { id = "typos" },
+  { id = "typos-commit-msg" },
 ]
 ```
 
@@ -105,6 +107,24 @@ as nixpkgs has it. The official hooks install typos with Python, Docker or Cargo
 and fix mistakes in place; this one uses the typos on `PATH` and only reports
 them. It checks the whole repository rather than the staged files, so the
 excludes in `typos.toml` apply.
+
+### `typos-commit-msg`
+
+The same typos, on the message git passes the hook. That file sits under
+`.git/`, so typos still finds the repository's `typos.toml`, but only its
+`[default]` rules apply: the message has no file type. Commit messages tend to
+quote hashes and tool output, which typos reads as words; ignore them there, for
+example:
+
+```toml
+[default]
+extend-ignore-re = [
+  # Short and full commit hashes, like "ba2846c"
+  '\b[0-9a-f]{7,40}\b',
+  # nvd's package lines, like "[U.] firefox 140.0"
+  '(?m)^\[[A-Z][.+*-]\] .*$',
+]
+```
 
 [pre-commit]: https://pre-commit.com
 [prek]: https://github.com/j178/prek

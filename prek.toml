@@ -46,3 +46,10 @@ name = "typos"
 entry = "typos"
 language = "system"
 pass_filenames = false
+
+[[repos.hooks]]
+id = "typos-commit-msg"
+name = "typos in commit message"
+entry = "typos"
+language = "system"
+stages = ["commit-msg"]

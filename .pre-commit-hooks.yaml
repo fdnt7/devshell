@@ -36,3 +36,9 @@
   entry: typos
   language: system
   pass_filenames: false
+- id: typos-commit-msg
+  name: typos in commit message
+  description: Check the commit message's spelling, configured by typos.toml.
+  entry: typos
+  language: system
+  stages: [commit-msg]
