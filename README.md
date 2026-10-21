@@ -59,8 +59,8 @@ which hooks are listed, so the two can move separately.
 
 ### `ascii-only`
 
-Opt characters in with an `ascii-allowlist.toml` at the repository root, pasting
-each one as it is:
+Opt characters in with an `ascii-only.toml` at the repository root, pasting each
+one as it is:
 
 ```toml
 allowed = [
@@ -69,11 +69,11 @@ allowed = [
 ]
 ```
 
-Each entry must be a single non-ASCII character. The allowlist itself is exempt
+Each entry must be a single non-ASCII character. The config itself is exempt
 from the check. To keep it elsewhere, pass its path:
 
 ```toml
-hooks = [{ id = "ascii-only", args = ["--allowlist", "path/to/allowlist.toml"] }]
+hooks = [{ id = "ascii-only", args = ["--config", "path/to/ascii-only.toml"] }]
 ```
 
 ### `cog-verify`
