@@ -1,0 +1,8 @@
+# Non-ASCII characters allowed anywhere, pasted as they are, each with
+# where it is needed. Read by the ascii-only hook, which exempts this
+# file from the check.
+
+allowed = [
+  "•", # bullet: `nix flake update` output, matched in commit-msg-length.awk
+  "→", # rightwards arrow: the same output
+]
