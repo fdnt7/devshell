@@ -104,7 +104,6 @@ A body line may run past 72 characters when it can't be wrapped:
 - a single word, such as a URL or a store path
 - a trailer in the last paragraph, such as `Refs: <url>`
 - `nix flake update` output: its input lines and their locked refs
-- `nvd` output: the store paths it compares and its package lines
 
 Comments and anything below the scissors line of `git commit --verbose` are not
 checked, since git strips them.

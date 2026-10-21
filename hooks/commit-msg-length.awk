@@ -6,7 +6,6 @@
 #   list marker
 # - a trailer in the last paragraph, such as `Refs: <url>`
 # - `nix flake update` output: the input lines and their locked refs
-# - `nvd` output: the store paths it compares and its package lines
 #
 # Usage: commit-msg-length <message file>
 
@@ -27,9 +26,6 @@ function exempt(i, s) {
         return 1
     # `nix flake update`
     if (s ~ /^• (Updated|Added|Removed) input '/ || s ~ /^    '/ || s ~ /^  → /)
-        return 1
-    # `nvd`
-    if (s ~ /^(<<<|>>>) \/nix\/store\// || s ~ /^\[[A-Z][.+*-]\] /)
         return 1
     sub(/^[ \t]*(([-*•]|[0-9]+[.)])[ \t]+)?/, "", s)
     return s !~ /[ \t]/
