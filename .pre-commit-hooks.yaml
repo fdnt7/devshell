@@ -1,0 +1,44 @@
+# The hooks run commands from the repository's PATH, which the dev shell
+# from lib.mkOutputs fills: these commands, and treefmt built from the
+# repository's own formatters. See README.md.
+- id: ascii-only
+  name: ascii only
+  description: Reject non-ASCII characters, except those an allowlist opts in.
+  entry: ascii-only
+  language: system
+  types: [text]
+- id: cog-verify
+  name: conventional commit message
+  description: Check the message against Conventional Commits, configured by cog.toml.
+  entry: cog verify --file
+  language: system
+  stages: [commit-msg]
+- id: commit-msg-length
+  name: commit message 50/72
+  description: Hold the subject to 50 characters and wrap the body at 72.
+  entry: commit-msg-length
+  language: system
+  stages: [commit-msg]
+- id: no-co-authors
+  name: no co-authors
+  description: Reject co-author trailers, for repositories with one author.
+  entry: no-co-authors
+  language: system
+  stages: [commit-msg]
+- id: treefmt
+  name: treefmt
+  description: Fail when the repository's treefmt would change a file.
+  entry: treefmt --no-cache --fail-on-change
+  language: system
+- id: typos
+  name: typos
+  description: Check spelling, configured by typos.toml, without fixing it.
+  entry: typos
+  language: system
+  pass_filenames: false
+- id: typos-commit-msg
+  name: typos in commit message
+  description: Check the commit message's spelling, configured by typos.toml.
+  entry: typos
+  language: system
+  stages: [commit-msg]

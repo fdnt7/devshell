@@ -1,12 +1,8 @@
 {
-  description = "One dev shell definition for every project";
+  description = "My dev shell for every project, with my git hooks";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    git-hooks = {
-      url = "github:fdnt7/git-hooks";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -17,11 +13,20 @@
     {
       self,
       nixpkgs,
-      git-hooks,
       treefmt-nix,
     }:
     let
-      lib = import ./lib.nix { inherit git-hooks treefmt-nix; };
+      lib = import ./lib { inherit treefmt-nix; };
     in
-    lib.mkOutputs { inherit self nixpkgs; } (_: { }) // { inherit lib; };
+    lib.mkOutputs { inherit self nixpkgs; } (_: {
+      treefmt = ./treefmt.nix;
+    })
+    // {
+      inherit lib;
+
+      # The hooks' commands, for `nix build` and anyone wanting them alone
+      packages = nixpkgs.lib.genAttrs [ "x86_64-linux" ] (
+        system: lib.hooks nixpkgs.legacyPackages.${system}
+      );
+    };
 }

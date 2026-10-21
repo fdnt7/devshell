@@ -1,5 +1,21 @@
-{ git-hooks, treefmt-nix }:
-{
+{ treefmt-nix }:
+rec {
+  # The hooks' commands, built with the given packages: one package per
+  # hook, and `default` with all of them.
+  hooks =
+    pkgs:
+    let
+      # callPackage adds override functions beside the hooks
+      each = pkgs.lib.filterAttrs (_: pkgs.lib.isDerivation) (pkgs.callPackage ../hooks { });
+    in
+    each
+    // {
+      default = pkgs.symlinkJoin {
+        name = "git-hooks";
+        paths = builtins.attrValues each;
+      };
+    };
+
   # A project's flake outputs: a dev shell, `nix fmt` and a formatting
   # check, set up the same way in every project. The project passes its
   # own flake and nixpkgs, and a function from its packages to what it
@@ -42,7 +58,7 @@
                 pkgs.bashInteractive
 
                 # The hooks in the project's prek.toml run these.
-                git-hooks.packages.${system}.default
+                (hooks pkgs).default
                 pkgs.prek
                 treefmt.config.build.wrapper
               ]
