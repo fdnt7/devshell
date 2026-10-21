@@ -3,6 +3,5 @@
 # file from the check.
 
 allowed = [
-  "•", # bullet: `nix flake update` output, matched in commit-msg-length.awk
-  "→", # rightwards arrow: the same output
+  "•", # bullet: the example of pasting a character in README.md
 ]

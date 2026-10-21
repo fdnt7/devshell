@@ -2,7 +2,5 @@
 extend-ignore-re = [
   # Ignore short and full commit hashes, like "ba2846c"
   '\b[0-9a-f]{7,40}\b',
-  # Ignore nvd's package lines, like "[U.] sord 0.16.20", in commit messages
-  '(?m)^\[[A-Z][.+*-]\] .*$',
 ]
 locale = "en-gb"

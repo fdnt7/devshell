@@ -79,7 +79,7 @@ one as it is:
 
 ```toml
 allowed = [
-  "•", # bullet: `nix flake update` output
+  "•", # bullet: in a tool's output quoted somewhere
   "\u00A0", # a character that does not show can be an escape
 ]
 ```
@@ -103,7 +103,6 @@ A body line may run past 72 characters when it can't be wrapped:
 
 - a single word, such as a URL or a store path
 - a trailer in the last paragraph, such as `Refs: <url>`
-- `nix flake update` output: its input lines and their locked refs
 
 Comments and anything below the scissors line of `git commit --verbose` are not
 checked, since git strips them.
@@ -127,16 +126,13 @@ excludes in `typos.toml` apply.
 The same typos, on the message git passes the hook. That file sits under
 `.git/`, so typos still finds the repository's `typos.toml`, but only its
 `[default]` rules apply: the message has no file type. Commit messages tend to
-quote hashes and tool output, which typos reads as words; ignore them there, for
-example:
+quote hashes, which typos reads as words; ignore them there, for example:
 
 ```toml
 [default]
 extend-ignore-re = [
   # Short and full commit hashes, like "ba2846c"
   '\b[0-9a-f]{7,40}\b',
-  # nvd's package lines, like "[U.] firefox 140.0"
-  '(?m)^\[[A-Z][.+*-]\] .*$',
 ]
 ```
 

@@ -5,7 +5,6 @@
 # - a single word, such as a URL or a store path, after any indent or
 #   list marker
 # - a trailer in the last paragraph, such as `Refs: <url>`
-# - `nix flake update` output: the input lines and their locked refs
 #
 # Usage: commit-msg-length <message file>
 
@@ -24,10 +23,7 @@ function exempt(i, s) {
     s = line[i]
     if (i >= trailers && trailer(s))
         return 1
-    # `nix flake update`
-    if (s ~ /^• (Updated|Added|Removed) input '/ || s ~ /^    '/ || s ~ /^  → /)
-        return 1
-    sub(/^[ \t]*(([-*•]|[0-9]+[.)])[ \t]+)?/, "", s)
+    sub(/^[ \t]*(([-*]|[0-9]+[.)])[ \t]+)?/, "", s)
     return s !~ /[ \t]/
 }
 
