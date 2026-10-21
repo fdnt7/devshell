@@ -1,6 +1,7 @@
 # Each hook as a command, with what it needs on its PATH. treefmt is not
 # here: each repository's wrapper carries its own treefmt.nix.
 {
+  cocogitto,
   gawk,
   gnugrep,
   taplo,
@@ -30,6 +31,7 @@
     text = builtins.readFile ./no-co-authors.sh;
   };
 
-  # As nixpkgs has it: typos.toml is all its configuration.
-  inherit typos;
+  # As nixpkgs has them: cog.toml and typos.toml are all their
+  # configuration.
+  inherit cocogitto typos;
 }

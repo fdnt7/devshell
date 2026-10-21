@@ -5,6 +5,7 @@ Git hooks for [prek] and [pre-commit], packaged with Nix.
 | Hook                | Stage      | What it checks                                                                      |
 | ------------------- | ---------- | ----------------------------------------------------------------------------------- |
 | `ascii-only`        | pre-commit | No non-ASCII characters, except those an allowlist opts in                          |
+| `cog-verify`        | commit-msg | A Conventional Commits message, by `cog.toml` if there is one                       |
 | `commit-msg-length` | commit-msg | A subject of at most 50 characters, a blank line after it, and a body wrapped at 72 |
 | `no-co-authors`     | commit-msg | No `Co-authored-by` trailers, for repositories with one author                      |
 | `treefmt`           | pre-commit | No file that the repository's treefmt would change                                  |
@@ -26,6 +27,7 @@ repo = "https://github.com/fdnt7/git-hooks"
 rev = "<tag or commit>"
 hooks = [
   { id = "ascii-only" },
+  { id = "cog-verify" },
   { id = "commit-msg-length" },
   { id = "no-co-authors" },
   { id = "treefmt" },
@@ -71,6 +73,12 @@ from the check. To keep it elsewhere, pass its path:
 ```toml
 hooks = [{ id = "ascii-only", args = ["--allowlist", "path/to/allowlist.toml"] }]
 ```
+
+### `cog-verify`
+
+cocogitto reads its configuration, such as extra commit types, from `cog.toml`,
+so this flake packages it as nixpkgs has it. cocogitto has no official hook to
+use instead.
 
 ### `commit-msg-length`
 

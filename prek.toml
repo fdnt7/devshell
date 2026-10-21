@@ -14,6 +14,13 @@ language = "system"
 types = ["text"]
 
 [[repos.hooks]]
+id = "cog-verify"
+name = "conventional commit message"
+entry = "cog verify --file"
+language = "system"
+stages = ["commit-msg"]
+
+[[repos.hooks]]
 id = "commit-msg-length"
 name = "commit message 50/72"
 entry = "commit-msg-length"

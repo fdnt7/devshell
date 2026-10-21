@@ -7,6 +7,12 @@
   entry: ascii-only
   language: system
   types: [text]
+- id: cog-verify
+  name: conventional commit message
+  description: Check the message against Conventional Commits, configured by cog.toml.
+  entry: cog verify --file
+  language: system
+  stages: [commit-msg]
 - id: commit-msg-length
   name: commit message 50/72
   description: Hold the subject to 50 characters and wrap the body at 72.
