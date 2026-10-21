@@ -19,7 +19,10 @@ done
 export LC_ALL=C.UTF-8
 
 class=
-if [ -e "$config" ]; then
+# An empty list allows nothing, like no config; it is told apart first
+# because taplo finds no entries to match in it and fails. A config
+# taplo cannot read fails the same way below.
+if [ -e "$config" ] && [ "$(taplo get -f "$config" -o json allowed 2>/dev/null)" != "[]" ]; then
   # taplo parses the TOML and prints the list one character per line,
   # with escapes resolved. The x keeps the substitution from dropping
   # an empty last entry along with the trailing newline.
