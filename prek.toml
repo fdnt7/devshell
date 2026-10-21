@@ -1,0 +1,16 @@
+default_install_hook_types = ["pre-commit", "commit-msg"]
+default_stages = ["pre-commit"]
+
+# Their commands come from the dev shell.
+[[repos]]
+repo = "https://github.com/fdnt7/git-hooks"
+rev = "f64e32c713e6e007f3e6c3d9736f375027fef343"
+hooks = [
+  { id = "ascii-only" },
+  { id = "cog-verify" },
+  { id = "commit-msg-length" },
+  { id = "no-co-authors" },
+  { id = "treefmt" },
+  { id = "typos" },
+  { id = "typos-commit-msg" },
+]
